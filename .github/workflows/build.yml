@@ -1,0 +1,24 @@
+name: Build Monorepo
+on:
+  push:
+    branches:
+      -dev
+  pull_request:
+    branches:
+      -dev
+
+#.....
+
+jobs:
+  build-packages:
+    name: Build Packages
+    #...
+    steps:
+      #...
+      - name: 'Create and publish packages tags'
+        if: github.ref_name == 'dev'
+        run: |
+          echo creating and publishing tags..
+          npx lerna publish minor -m "chore(root) publish packages" --conventional-commites --yes
+      #...
+    
